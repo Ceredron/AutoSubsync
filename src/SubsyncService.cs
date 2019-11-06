@@ -80,8 +80,9 @@ namespace AutoSubsync
 
             // Find the video file whose name matches the SRT file
             string srtFileName = srtFileWithPath.Substring(e.FullPath.LastIndexOf('\\') + 1);
-            string srtFileNameWithoutExtension = srtFileName.Substring(0, srtFileName.IndexOf('.'));
+            string srtFileNameWithoutExtension = srtFileName.Substring(0, srtFileName.LastIndexOf('.'));
             filesInDirectory = filesInDirectory.Where<string>(file => file.Contains(srtFileNameWithoutExtension)).ToArray();
+            WriteToEventLog("Now looking for " + srtFileNameWithoutExtension + " video files.");
 
             if (filesInDirectory.Length == 1)
                 SubsyncSubtitle(filesInDirectory[0], srtFileWithPath);
